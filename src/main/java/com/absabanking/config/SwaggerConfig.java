@@ -6,12 +6,9 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
-import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
-
-import java.util.Collection;
 
 @Configuration
 @EnableSwagger2
@@ -31,7 +28,7 @@ public class SwaggerConfig {
                 "bank service rest api",
                 "1.0",
                 "Terms of service",
-                String.valueOf(new Contact("Simbarashe Makwangudze", "0742769619", "smakwangudze@gmail.com")),
+                String.valueOf(new Contact("Judge Muzinda", "0761494738", "jmuzinda@gmail.com")),
                 "", "");
         return apiInfo;
     }

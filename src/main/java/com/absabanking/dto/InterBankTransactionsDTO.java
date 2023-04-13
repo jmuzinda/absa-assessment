@@ -10,7 +10,7 @@ import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 @Data
-public class InterBankTransactionsDTo {
+public class InterBankTransactionsDTO {
     @NotNull
     private Long accountNumber ;
     private String narrative;

@@ -1,9 +1,14 @@
 package com.absabanking.service;
 
+import com.absabanking.domain.Account;
+import com.absabanking.domain.Address;
+import com.absabanking.domain.Bank;
+import com.absabanking.domain.Card;
+import com.absabanking.domain.Client;
+import com.absabanking.domain.Contact;
 import com.absabanking.enums.EPreferredContactType;
 import com.absabanking.enums.ESex;
 import com.absabanking.exception.ClientAlreadyExistsException;
-import com.absabanking.model.*;
 import com.absabanking.repository.AccountRepository;
 import com.absabanking.repository.BankRepository;
 import com.absabanking.repository.CardRepository;
@@ -141,21 +146,21 @@ class ClientServiceTest {
 
     private Client createClient() {
         Client client = new Client();
-        Address address = new Address("Unit 151 Chianti Lifestyle", "80 Leeukwop road", 2196L, "Sandton");
+        Address address = new Address("Dummy line 1", "Dummy line 2", 3647L, "Sandton");
         client.setClientAddress(address);
-        Contact contact = new Contact(774989776L, "sm@gmail.com",9929332L);
+        Contact contact = new Contact(761494765L, "test@gmail.com",79595685L);
         client.setClientContact(contact);
         client.setDateOfBirth(LocalDate.now().minusYears(20));
         client.setDependents(4);
-        client.setEducation("Bachelors");
+        client.setEducation("Masters");
         client.setESex(ESex.FEMALE);
-        client.setIdNumber(96665676L);
-        client.setMonthlyExpenses(200);
+        client.setIdNumber(759596865L);
+        client.setMonthlyExpenses(150);
         client.setEPreferredContactType(EPreferredContactType.SMS);
-        client.setPassportNumber("AAD7654");
+        client.setPassportNumber("AFT8745");
         client.setRace("African");
         client.setReceiveNotification(true);
-        client.setSurname("Makwangudze");
+        client.setSurname("DummySurname");
         return client;
     }
 }

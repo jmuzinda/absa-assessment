@@ -1,6 +1,4 @@
-package com.absabanking.model;
-
-import javax.persistence.*;
+package com.absabanking.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +12,4 @@ public class Contact {
     private Long cellNumber;
     private String email;
     private Long homePhone;
-
-
 }

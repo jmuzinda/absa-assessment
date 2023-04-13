@@ -1,7 +1,7 @@
 package com.absabanking.service;
 
+import com.absabanking.domain.Bank;
 import com.absabanking.enums.EPreferredContactType;
-import com.absabanking.model.Bank;
 import com.absabanking.repository.BankRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +12,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import javax.annotation.Resource;
 import java.util.Random;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @RunWith(JUnit4.class)
@@ -20,7 +22,6 @@ class BankServiceTest {
 
     @Resource
     private BankRepository bankRepository;
-
     private Bank bank = new Bank("ABSA", "ABSA_" + new Random().nextInt(), EPreferredContactType.SMS);
 
     @AfterEach

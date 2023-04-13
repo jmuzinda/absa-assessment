@@ -1,4 +1,4 @@
-package com.absabanking.model;
+package com.absabanking.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;

@@ -1,8 +1,7 @@
 package com.absabanking.repository;
 
 import com.absabanking.enums.ETranType;
-import com.absabanking.model.Restriction;
-import com.absabanking.model.Transaction;
+import com.absabanking.domain.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

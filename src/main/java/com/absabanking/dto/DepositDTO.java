@@ -1,7 +1,6 @@
 package com.absabanking.dto;
 
 import com.absabanking.enums.ETranType;
-import com.absabanking.model.Account;
 import com.sun.istack.NotNull;
 import lombok.Value;
 
@@ -10,7 +9,7 @@ import javax.persistence.Enumerated;
 import java.math.BigDecimal;
 
 @Value
-public class DepositDto {
+public class DepositDTO {
     @NotNull
     private Long accountNumber;
     @NotNull

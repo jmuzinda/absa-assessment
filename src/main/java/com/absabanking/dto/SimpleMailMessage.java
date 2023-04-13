@@ -8,5 +8,4 @@ public class SimpleMailMessage {
     private String subject;
     private String text ;
     private  String  from;
-
 }

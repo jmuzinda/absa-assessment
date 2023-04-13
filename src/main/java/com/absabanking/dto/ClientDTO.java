@@ -1,10 +1,9 @@
 package com.absabanking.dto;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Data
-public class ClientDto {
+public class ClientDTO {
     private String clientName;
     private String ClientSurname ;
     private Long cellNumber ;

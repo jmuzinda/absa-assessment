@@ -1,6 +1,6 @@
 package com.absabanking.repository;
 
-import com.absabanking.model.Client;
+import com.absabanking.domain.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

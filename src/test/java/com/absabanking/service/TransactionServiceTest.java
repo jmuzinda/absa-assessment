@@ -1,12 +1,11 @@
 package com.absabanking.service;
 
-import com.absabanking.dto.InternalTransactionDto;
+import com.absabanking.dto.InternalTransactionDTO;
 import com.absabanking.enums.EAccountType;
 import com.absabanking.enums.ETranType;
 import com.absabanking.exception.SavingsAccountException;
-import com.absabanking.model.Account;
-import com.absabanking.model.Transaction;
-import com.absabanking.repository.AccountRepository;
+import com.absabanking.domain.Account;
+import com.absabanking.domain.Transaction;
 import com.absabanking.repository.BankRepository;
 import com.absabanking.repository.TransactionRepository;
 import org.junit.jupiter.api.Test;
@@ -52,7 +51,7 @@ class TransactionServiceTest {
 
     @Test
     public void testTransferFromCurrentToAnotherAccountChangesShouldBeMadeToBothAccounts() throws Exception {
-        InternalTransactionDto internalTransactionDto = createInternalTransactionDTO();
+        InternalTransactionDTO internalTransactionDto = createInternalTransactionDTO();
         Account senderAccount = createAccount(EAccountType.CURRENT, BigDecimal.valueOf(30000),
                 internalTransactionDto.getSenderAccount());
         Account receiveAccount = createAccount(EAccountType.CURRENT, BigDecimal.ZERO, internalTransactionDto.getReceiverAccount());
@@ -99,7 +98,7 @@ class TransactionServiceTest {
     @Test
     public void transferMoneyFromSavingsAccountShouldThrowSavingsAccountException() throws Exception {
 
-        InternalTransactionDto internalTransactionDto = createInternalTransactionDTO();
+        InternalTransactionDTO internalTransactionDto = createInternalTransactionDTO();
 
         Account account = createAccount(EAccountType.SAVINGS, BigDecimal.valueOf(30000), internalTransactionDto.getSenderAccount());
 
@@ -122,9 +121,9 @@ class TransactionServiceTest {
     void postInternalTransfer() {
     }
 
-    private InternalTransactionDto createInternalTransactionDTO() {
+    private InternalTransactionDTO createInternalTransactionDTO() {
 
-        return new InternalTransactionDto(200000L, 10000L,
+        return new InternalTransactionDTO(200000L, 10000L,
                 "Internal transfer", BigDecimal.valueOf(300), ETranType.INTERNAL_TRANSFER);
     }
 }

@@ -1,7 +1,6 @@
 package com.absabanking.repository;
 
-import com.absabanking.model.Notification;
-import com.absabanking.model.Restriction;
+import com.absabanking.domain.Restriction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

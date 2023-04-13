@@ -1,7 +1,7 @@
 package com.absabanking.service;
 
+import com.absabanking.domain.Bank;
 import com.absabanking.exception.BankExitsException;
-import com.absabanking.model.Bank;
 import com.absabanking.repository.BankRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

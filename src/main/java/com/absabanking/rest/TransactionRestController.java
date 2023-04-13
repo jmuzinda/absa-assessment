@@ -1,10 +1,10 @@
 package com.absabanking.rest;
 
-import com.absabanking.dto.DepositDto;
-import com.absabanking.dto.InterBankTransactionsDTo;
-import com.absabanking.dto.InternalTransactionDto;
-import com.absabanking.model.Account;
-import com.absabanking.model.Bank;
+import com.absabanking.domain.Account;
+import com.absabanking.domain.Bank;
+import com.absabanking.dto.DepositDTO;
+import com.absabanking.dto.InterBankTransactionsDTO;
+import com.absabanking.dto.InternalTransactionDTO;
 import com.absabanking.service.AccountService;
 import com.absabanking.service.BankService;
 import com.absabanking.service.TransactionService;
@@ -13,7 +13,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -28,9 +34,7 @@ public class TransactionRestController {
 
     private final BankService bankService;
     private final AccountService accountService;
-
     private final TransactionService transactionService;
-
 
     @Autowired
     public TransactionRestController(BankService bankService, AccountService accountService, TransactionService transactionService) {
@@ -42,7 +46,7 @@ public class TransactionRestController {
     @Transactional
     @PostMapping("/internal-transfers")
     @ApiOperation(value = "Customers should be able to move money between their accounts")
-    ResponseEntity internalTransfers(@RequestBody InternalTransactionDto internalTransactionDto) throws Exception {
+    ResponseEntity internalTransfers(@RequestBody InternalTransactionDTO internalTransactionDto) throws Exception {
         transactionService.postInternalTransfer(internalTransactionDto);
         return new ResponseEntity("transaction was saved successful", HttpStatus.OK);
     }
@@ -50,7 +54,7 @@ public class TransactionRestController {
     @ApiOperation(value = "Bank X also want to allow Bank Z to be able debit or credit the customer’s account for any " +
             "transactions that were handled by Bank Z on behalf of Bank X. Bank Z should be able to send a single immediate" +
             " transaction or a list of transactions which should be processed immediately.")
-    ResponseEntity bankActingOnBehalfOf(@RequestBody List<InterBankTransactionsDTo> listOfInterBankTransactionsDTo) throws Exception {
+    ResponseEntity bankActingOnBehalfOf(@RequestBody List<InterBankTransactionsDTO> listOfInterBankTransactionsDTo) throws Exception {
         transactionService.processTransactionsForOtherBanks(listOfInterBankTransactionsDTo);
         return new ResponseEntity("transaction was saved successful posted", HttpStatus.OK);
     }
@@ -75,7 +79,7 @@ public class TransactionRestController {
     @Transactional
     @PostMapping("/deposit")
     @ApiOperation(value = "deposit- transaction")
-    public void getBankTransactionCharges(DepositDto depositDto) {
+    public void getBankTransactionCharges(DepositDTO depositDto) {
         Account senderAccount = accountService.findAccountByAccountNumber(depositDto.getAccountNumber());
         transactionService.handleDeposit(depositDto, senderAccount);
     }

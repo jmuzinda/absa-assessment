@@ -1,11 +1,11 @@
 package com.absabanking.listener;
 
-import com.absabanking.dto.ClientDto;
+import com.absabanking.converter.EPreferredContactTypeConverter;
+import com.absabanking.domain.Client;
+import com.absabanking.domain.Transaction;
+import com.absabanking.dto.ClientDTO;
 import com.absabanking.enums.EPreferredContactType;
-import com.absabanking.model.Client;
-import com.absabanking.model.Transaction;
 import com.absabanking.repository.ClientRepository;
-import com.absabanking.util.GenderConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
@@ -24,11 +24,11 @@ public class TransactionEventListener {
     @EventListener(Transaction.class)
     void handleTransactionEvent(Transaction transactionEvent) {
         logger.info("_________________START of internal transfer log___________________________");
-        ClientDto recipient = getClientCommunicationDetails(transactionEvent.getSenderAccount());
+        ClientDTO recipient = getClientCommunicationDetails(transactionEvent.getSenderAccount());
         if (recipient.getPrefferedCommunicationMethod().equalsIgnoreCase(EPreferredContactType.SMS.toString())) {
-            logger.info(" Sending SMS  : {} Dear " + GenderConverter.genderConverter(recipient.getSex()) + " , a transaction of : {} has been send to your account :{}", recipient.getCellNumber(), recipient.getClientSurname(), transactionEvent.getTransactionAmount(), LocalDateTime.now());
+            logger.info(" Sending SMS  : {} Dear " + EPreferredContactTypeConverter.GenderConverter.genderConverter(recipient.getSex()) + " , a transaction of : {} has been send to your account :{}", recipient.getCellNumber(), recipient.getClientSurname(), transactionEvent.getTransactionAmount(), LocalDateTime.now());
         } else
-            logger.info(" Sending EMAIL : {} Dear " + GenderConverter.genderConverter(recipient.getSex()) + " , a transaction of : {} has been send to your account :{}", recipient.getEmail(), recipient.getClientSurname(), transactionEvent.getTransactionAmount(), LocalDateTime.now());
+            logger.info(" Sending EMAIL : {} Dear " + EPreferredContactTypeConverter.GenderConverter.genderConverter(recipient.getSex()) + " , a transaction of : {} has been send to your account :{}", recipient.getEmail(), recipient.getClientSurname(), transactionEvent.getTransactionAmount(), LocalDateTime.now());
         logger.info("_________________END of internal transfer log___________________________");
     }
     /**
@@ -37,9 +37,9 @@ public class TransactionEventListener {
      * @param accountNumber bank client account number
      * @return a bank client communication object
      */
-    public ClientDto getClientCommunicationDetails(long accountNumber) {
+    public ClientDTO getClientCommunicationDetails(long accountNumber) {
         Client bankClient = clientRepository.findClientByAccountNumber(accountNumber);
-        ClientDto client = new ClientDto();
+        ClientDTO client = new ClientDTO();
         client.setClientName(bankClient.getName());
         client.setClientSurname(bankClient.getSurname());
         client.setCellNumber(bankClient.getClientContact().getCellNumber());

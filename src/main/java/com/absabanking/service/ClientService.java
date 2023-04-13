@@ -1,18 +1,16 @@
 package com.absabanking.service;
 
+import com.absabanking.domain.Account;
+import com.absabanking.domain.Bank;
+import com.absabanking.domain.Card;
+import com.absabanking.domain.Client;
 import com.absabanking.enums.EAccountType;
 import com.absabanking.enums.EBankCardStatus;
-import com.absabanking.exception.BankExitsException;
 import com.absabanking.exception.ClientAlreadyExistsException;
-import com.absabanking.model.Account;
-import com.absabanking.model.Bank;
-import com.absabanking.model.Card;
-import com.absabanking.model.Client;
 import com.absabanking.repository.AccountRepository;
 import com.absabanking.repository.BankRepository;
 import com.absabanking.repository.CardRepository;
 import com.absabanking.repository.ClientRepository;
-import com.absabanking.rest.TransactionRestController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -127,5 +125,4 @@ public class ClientService {
 
         clientRepository.save(client);
     }
-
 }

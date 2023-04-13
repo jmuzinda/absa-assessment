@@ -1,27 +1,24 @@
 package com.absabanking.service;
 
-import com.absabanking.dto.DepositDto;
-import com.absabanking.dto.InterBankTransactionsDTo;
-import com.absabanking.dto.InternalTransactionDto;
+import com.absabanking.domain.Account;
+import com.absabanking.domain.Bank;
+import com.absabanking.domain.Transaction;
+import com.absabanking.dto.DepositDTO;
+import com.absabanking.dto.InterBankTransactionsDTO;
+import com.absabanking.dto.InternalTransactionDTO;
 import com.absabanking.enums.EAccountType;
 import com.absabanking.enums.EPostingType;
 import com.absabanking.enums.ETranType;
 import com.absabanking.exception.InterbankTransactionException;
 import com.absabanking.exception.SavingsAccountException;
-import com.absabanking.model.Account;
-import com.absabanking.model.Bank;
-import com.absabanking.model.Transaction;
 import com.absabanking.repository.AccountRepository;
 import com.absabanking.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 
-
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 
 @Service
@@ -56,7 +53,7 @@ public class TransactionService {
      * @param depositDto
      * @param senderAccount
      */
-    public void handleDeposit(DepositDto depositDto, Account senderAccount) {
+    public void handleDeposit(DepositDTO depositDto, Account senderAccount) {
         if (senderAccount != null) {
             Transaction transaction = new Transaction();
             transaction.setTranType(ETranType.DEPOSIT);
@@ -71,9 +68,9 @@ public class TransactionService {
      * @param listOfInterBankTransactionsDTo
      */
     @Transactional
-    public void processTransactionsForOtherBanks(List<InterBankTransactionsDTo> listOfInterBankTransactionsDTo) {
+    public void processTransactionsForOtherBanks(List<InterBankTransactionsDTO> listOfInterBankTransactionsDTo) {
         if (!listOfInterBankTransactionsDTo.isEmpty()) {
-            for (InterBankTransactionsDTo interbankTransactions : listOfInterBankTransactionsDTo) {
+            for (InterBankTransactionsDTO interbankTransactions : listOfInterBankTransactionsDTo) {
                 Bank bankActingOnBehalf = bankService.findBankByBankCode(interbankTransactions.getActingOnBehalfBankCode());
                 Bank accountHolderBank = bankService.findBankByBankCode(interbankTransactions.getAccountHolderBankCode());
                 if (bankActingOnBehalf.equals(accountHolderBank)) {
@@ -112,7 +109,7 @@ public class TransactionService {
      * @param internalTransactionDto
      * @throws Exception
      */
-    public void postInternalTransfer(InternalTransactionDto internalTransactionDto) throws Exception {
+    public void postInternalTransfer(InternalTransactionDTO internalTransactionDto) throws Exception {
         internalTransactionDto.setETranType(ETranType.INTERNAL_TRANSFER);
         Account senderAccount = accountService.findAccountByAccountNumber(internalTransactionDto.getSenderAccount());
         if (senderAccount.getAccountType().equalsIgnoreCase(EAccountType.SAVINGS.toString())) {
@@ -139,7 +136,7 @@ public class TransactionService {
                 accountService.updateAccount(receiverAccount);
             }
             accountService.updateAccount(senderAccount);
-            postInternalTransactions(InternalTransactionDto.getInstance(internalTransactionDto));
+            postInternalTransactions(InternalTransactionDTO.getInstance(internalTransactionDto));
         }
 
     }
@@ -147,9 +144,9 @@ public class TransactionService {
     /**
      * @param listOfInterBankTransactionsDTo one or more transactions to process
      */
-    private void postBankActingOnBehalfOfTransactions(List<InterBankTransactionsDTo> listOfInterBankTransactionsDTo) {
+    private void postBankActingOnBehalfOfTransactions(List<InterBankTransactionsDTO> listOfInterBankTransactionsDTo) {
         if (!listOfInterBankTransactionsDTo.isEmpty()) {
-            for (InterBankTransactionsDTo interBankTransactionsDTo : listOfInterBankTransactionsDTo) {
+            for (InterBankTransactionsDTO interBankTransactionsDTo : listOfInterBankTransactionsDTo) {
                 transactionServiceLogger.info("posting transactions on behalf of bank started successfully", interBankTransactionsDTo.getActingOnBehalfBankCode());
                 Transaction transaction = new Transaction();
                 transaction.setTranType(interBankTransactionsDTo.getETranType());

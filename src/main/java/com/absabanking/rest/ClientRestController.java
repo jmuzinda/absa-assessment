@@ -1,8 +1,8 @@
 package com.absabanking.rest;
 
-import com.absabanking.enums.*;
-import com.absabanking.model.Bank;
-import com.absabanking.model.Client;
+import com.absabanking.domain.Bank;
+import com.absabanking.domain.Client;
+import com.absabanking.enums.ResponseCode;
 import com.absabanking.repository.AccountRepository;
 import com.absabanking.repository.CardRepository;
 import com.absabanking.service.BankService;
@@ -12,7 +12,13 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/client")

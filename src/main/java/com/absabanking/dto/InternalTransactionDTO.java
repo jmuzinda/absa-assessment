@@ -1,8 +1,7 @@
 package com.absabanking.dto;
 
 import com.absabanking.enums.ETranType;
-import com.absabanking.model.AbstractEntity;
-import com.absabanking.model.Transaction;
+import com.absabanking.domain.Transaction;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,7 +15,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternalTransactionDto {
+public class InternalTransactionDTO {
     @NotNull
     private Long senderAccount;
     @NotNull
@@ -26,7 +25,7 @@ public class InternalTransactionDto {
     @Enumerated(EnumType.STRING)
     private ETranType eTranType;
 
-    public static Transaction getInstance(InternalTransactionDto dto) {
+    public static Transaction getInstance(InternalTransactionDTO dto) {
         Transaction transaction = new Transaction();
         transaction.setTransactionAmount(dto.getTransactionAmount());
         transaction.setSenderAccount(dto.getSenderAccount());

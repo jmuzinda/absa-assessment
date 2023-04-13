@@ -1,6 +1,7 @@
 package com.absabanking.converter;
 
 import com.absabanking.enums.EPreferredContactType;
+import com.absabanking.enums.ESex;
 
 import javax.persistence.AttributeConverter;
 import java.util.Arrays;
@@ -34,4 +35,11 @@ public class EPreferredContactTypeConverter  implements AttributeConverter<EPref
     }
 
 
+    public static class  GenderConverter {
+        public static String genderConverter(String sexType) {
+            if (sexType == ESex.FEMALE.toString()) {
+                return "Mr";
+            } else return "Mrs";
+        }
+    }
 }

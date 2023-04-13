@@ -1,10 +1,10 @@
 package com.absabanking.batch;
 
 import com.absabanking.enums.ETranType;
-import com.absabanking.service.EmailService;
-import com.absabanking.model.Bank;
-import com.absabanking.model.Transaction;
+import com.absabanking.domain.Bank;
+import com.absabanking.domain.Transaction;
 import com.absabanking.service.BankService;
+import com.absabanking.service.EmailService;
 import com.absabanking.service.TransactionService;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
 
 import javax.mail.MessagingException;
 import javax.transaction.Transactional;
@@ -71,7 +70,6 @@ public class ProcessReconciliationBatchJob {
                     log.info("retrieved these transactions : {}", transaction.getSenderAccount());
                     sendEODFileAsEmailAttachment(bank.getBankContact().getEmail(), SUBJECT, MAIL_TEXT, from, baseUrl, bank.getBankContact().getEmail(), outputFileName);
                     log.info("archiving files");
-                    archivingProcess();
                 }
                 log.info("  end of eod process for bank : {}   ", bank.getBankCode());
             }
@@ -149,8 +147,4 @@ public class ProcessReconciliationBatchJob {
 
         }
     }
-
-    private void archivingProcess() {
-    }
-
 }
